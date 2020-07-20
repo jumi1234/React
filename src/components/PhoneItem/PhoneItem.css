@@ -1,0 +1,21 @@
+.phone_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #495057;
+  padding: 20px;
+}
+
+.phone_item + .phone_item {
+  margin-top: 15px;
+}
+
+.phone_item_right button {
+  color: #fa5252;
+  font-size: 15px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
