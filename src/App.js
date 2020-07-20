@@ -39,14 +39,20 @@ class App extends Component {
     setNextId();
   }
 
+  handleRemove = id => {
+    const { [id]: _, ...dummyData } = this.state.dummyData;
+
+    this.setState({ dummyData });
+  }
+
   render() {
-    const { handleInput, handleSubmit } = this;
+    const { handleInput, handleSubmit, handleRemove } = this;
     const { dummyData, name, phone } = this.state;
 
     return (
       <div className="container">
         <InputBox name={name} phone={phone} onChange={handleInput} onSubmit={handleSubmit} />
-        <PhoneList list={dummyData} />
+        <PhoneList list={dummyData} deleteItem={handleRemove} />
       </div>
     );
   }

@@ -7,11 +7,11 @@ const PhoneWrapper = styled.div`
   flex-direction: column;
 `;
 
-const PhoneList = ({ list }) => {
+const PhoneList = ({ list, deleteItem }) => {
   return(
     <PhoneWrapper>
       {Object.values(list).map(item => {
-        return <PhoneItem {...item} key={item.id} />;
+        return <PhoneItem {...item} key={item.id} onClick={deleteItem}/>;
       })}
     </PhoneWrapper>
  );

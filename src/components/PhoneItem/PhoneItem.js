@@ -1,7 +1,7 @@
 import React from "react";
 import "./PhoneItem.css";
 
-const PhoneItem = ({ name, phone }) => {
+const PhoneItem = ({ id, name, phone, onClick }) => {
   return (
     <div className="phone_item">
       <div cassName="phone_item_left">
@@ -9,7 +9,7 @@ const PhoneItem = ({ name, phone }) => {
         <div cassName="phone_item_phone">{phone}</div>
       </div>
       <div className="phone_item_right">
-        <button>삭제</button>
+        <button onClick={() => onClick(id)}>삭제</button>
       </div>
     </div>
   )
