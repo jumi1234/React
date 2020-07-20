@@ -1,12 +1,19 @@
 import React from "react";
-import "./PhoneList.css";
 import PhoneItem from "../PhoneItem";
+import styled from "styled-components";
 
-const PhoneList = () => {
+const PhoneWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const PhoneList = ({ list }) => {
   return(
-    <div className="phone_list">
-      <PhoneItem />
-    </div>
+    <PhoneWrapper>
+      {Object.values(list).map(item => {
+        return <PhoneItem {...item} key={item.id} />;
+      })}
+    </PhoneWrapper>
  );
 }
 
