@@ -1,61 +1,45 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import InputBox from "./components/InputBox";
 import PhoneList from "./components/PhoneList";
 import { dummyData, nextId, setNextId } from "./lib/dummyData.js";
+import useInput from "./lib/useInput";
 
 
-class App extends Component {
-  state = {
-    dummyData,
-    name: "",
-    phone: "",
-  }
+const App = () => {
+  const [data, setData] = useState(dummyData);
+  const [name, setName, onChangeName] = useInput("");
+  const [phone, setPhone, onChangePhone] = useInput("");
 
-  handleInput = e => {
-    this.setState({
-      [e.target.name]: e.target.value
+
+  const handleSubmit = () => {
+    if(name === "" || phone === "") return;
+
+    setData({
+      ...data,
+      [nextId]: {
+        id: String(nextId),
+        name,
+        phone
+      }
     });
-  }
-
-  handleSubmit = () => {
-    const { dummyData, name, phone } = this.state;
-
-    if (name == "" || phone == "") return;
-
-    this.setState({
-      dummyData: {
-        ...dummyData,
-        [nextId]: {
-          id: nextId,
-          name,
-          phone
-        }
-      },
-      name: "",
-      phone: ""
-    });
-
+    setName("");
+    setPhone("");
     setNextId();
   }
 
-  handleRemove = id => {
-    const { [id]: _, ...dummyData } = this.state.dummyData;
+  const handleRemove = id => {
+    const { [id]: _, ...dummyData } = data;
 
-    this.setState({ dummyData });
+    setData(dummyData);
   }
 
-  render() {
-    const { handleInput, handleSubmit, handleRemove } = this;
-    const { dummyData, name, phone } = this.state;
-
-    return (
-      <div className="container">
-        <InputBox name={name} phone={phone} onChange={handleInput} onSubmit={handleSubmit} />
-        <PhoneList list={dummyData} deleteItem={handleRemove} />
-      </div>
-    );
-  }
+  return (
+    <div className="container">
+      <InputBox name={name} phone={phone} onChangeName={onChangeName} onChangePhone={onChangePhone} onSubmit={handleSubmit} />
+      <PhoneList list={data} deleteItem={handleRemove} />
+    </div>
+  );
 }
 
 export default App;
